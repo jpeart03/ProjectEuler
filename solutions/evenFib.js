@@ -1,3 +1,5 @@
+// return sum of even fibbonacci numbers up to 4,000,000
+
 const buildFibSeq = (max) => {
     let fibSeq = [1, 2]
 
