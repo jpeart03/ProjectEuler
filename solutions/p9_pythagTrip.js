@@ -6,7 +6,7 @@ const getTrip = (targetSum) => {
     for (let a = 1; a < targetSum - 1; a++) {
         // then b's for each a
         for (let b = a + 1; b < targetSum - 1; b++) {
-            // setting c to sum of a**2 + b**2
+            // setting c to sqrt of a**2 + b**2
             c = Math.sqrt(a ** 2 + b ** 2);
             // checking if c is a natural number (no decimals)
             if (c % 1 === 0) {
