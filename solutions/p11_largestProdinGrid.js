@@ -38,7 +38,7 @@ const checkUp = (coords) => {
     let x = coords[0];
     let y = coords[1];
 
-    if (x - 4 >= 0)
+    if (x - 4 > 0)
         for (let i = x - 4; i < x; i++) {
             prod *= GRID[i][y];
         }
@@ -62,7 +62,7 @@ const checkLeft = (coords) => {
     let x = coords[0];
     let y = coords[1];
 
-    if (y - 4 >= 0)
+    if (y - 4 > 0)
         for (let i = y - 4; i < y; i++) {
             prod *= GRID[x][i];
         }
@@ -86,11 +86,11 @@ const checkDUL = (coords) => {
     let x = coords[0];
     let y = coords[1];
 
-    // slightly different logic:
+    // slightly different logic for diagonals:
     // simple for loop that does 4 iterations
     // x and y logic is handled in the block
     // starting at coord and moving out
-    if (x - 4 >= 0 && y - 4 > 0)
+    if (x - 4 > 0 && y - 4 > 0)
         for (let i = 0; i < 4; i++) {
             x--;
             y--;
@@ -104,7 +104,7 @@ const checkDUR = (coords) => {
     let x = coords[0];
     let y = coords[1];
 
-    if (x - 4 >= 0 && y + 4 < GRID.length)
+    if (x - 4 > 0 && y + 4 < GRID.length)
         for (let i = 0; i < 4; i++) {
             x--;
             y++;
@@ -117,7 +117,7 @@ const checkDLL = (coords) => {
     let prod = 1;
     let x = coords[0];
     let y = coords[1];
-    if (x + 4 < GRID.length && y - 4 >= 0)
+    if (x + 4 < GRID.length && y - 4 > 0)
         for (let i = 0; i < 4; i++) {
             x++;
             y--;
