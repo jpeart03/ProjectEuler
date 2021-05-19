@@ -25,21 +25,23 @@ const GRID = [
     [01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 01, 89, 19, 67, 48]
 ]
 
-const NUM_COORDS = [
-    [6, 8],
-    [7, 9],
-    [8, 10],
-    [9, 11],
-];
+const NUM_COORDS = [];
+
+for (var row = 0; row < GRID.length; row++) {
+    for (var col = 0; col < GRID.length; col++) {
+        NUM_COORDS.push([row, col]);
+    }
+}
 
 const checkUp = (coords) => {
     let prod = 1;
     let x = coords[0];
     let y = coords[1];
 
-    for (let i = x - 4; i < x; i++) {
-        prod *= GRID[i][y];
-    }
+    if (x - 4 >= 0)
+        for (let i = x - 4; i < x; i++) {
+            prod *= GRID[i][y];
+        }
     return prod;
 };
 
@@ -48,103 +50,109 @@ const checkDown = (coords) => {
     let x = coords[0];
     let y = coords[1];
 
-    for (let i = x + 4; i > x; i--) {
-        prod *= GRID[i][y];
-    }
+    if (x + 4 < GRID.length)
+        for (let i = x + 4; i > x; i--) {
+            prod *= GRID[i][y];
+        }
     return prod;
 };
 
 const checkLeft = (coords) => {
     let prod = 1;
-    let x = coords[0]
-    let y = coords[1]
+    let x = coords[0];
+    let y = coords[1];
 
-    for (let i = y - 4; i < y; i++) {
-        prod *= GRID[x][i]
-    }
+    if (y - 4 >= 0)
+        for (let i = y - 4; i < y; i++) {
+            prod *= GRID[x][i];
+        }
     return prod;
-}
+};
 
 const checkRight = (coords) => {
     let prod = 1;
-    let x = coords[0]
-    let y = coords[1]
+    let x = coords[0];
+    let y = coords[1];
 
-    for (let i = y + 4; i > y; i--) {
-        prod *= GRID[x][i]
-    }
-    return prod
-}
+    if (y + 4 < GRID.length)
+        for (let i = y + 4; i > y; i--) {
+            prod *= GRID[x][i];
+        }
+    return prod;
+};
 
 const checkDUL = (coords) => {
     let prod = 1;
-    let x = coords[0]
-    let y = coords[1]
+    let x = coords[0];
+    let y = coords[1];
 
-    // slightly different logic: 
+    // slightly different logic:
     // simple for loop that does 4 iterations
     // x and y logic is handled in the block
     // starting at coord and moving out
-    for (let i = 0; i < 4; i++) {
-        x--
-        y--
-        prod *= GRID[x][y]
-    }
+    if (x - 4 >= 0 && y - 4 > 0)
+        for (let i = 0; i < 4; i++) {
+            x--;
+            y--;
+            prod *= GRID[x][y];
+        }
     return prod;
-}
+};
 
 const checkDUR = (coords) => {
     let prod = 1;
-    let x = coords[0]
-    let y = coords[1]
+    let x = coords[0];
+    let y = coords[1];
 
-    for (let i = 0; i < 4; i++) {
-        x--
-        y++
-        prod *= GRID[x][y]
-    }
+    if (x - 4 >= 0 && y + 4 < GRID.length)
+        for (let i = 0; i < 4; i++) {
+            x--;
+            y++;
+            prod *= GRID[x][y];
+        }
     return prod;
-}
+};
 
 const checkDLL = (coords) => {
     let prod = 1;
-    let x = coords[0]
-    let y = coords[1]
-
-    for (let i = 0; i < 4; i++) {
-        x++
-        y--
-        prod *= GRID[x][y]
-    }
+    let x = coords[0];
+    let y = coords[1];
+    if (x + 4 < GRID.length && y - 4 >= 0)
+        for (let i = 0; i < 4; i++) {
+            x++;
+            y--;
+            prod *= GRID[x][y];
+        }
     return prod;
-}
+};
 
 const checkDLR = (coords) => {
     let prod = 1;
-    let x = coords[0]
-    let y = coords[1]
+    let x = coords[0];
+    let y = coords[1];
 
-    for (let i = 0; i < 4; i++) {
-        x++
-        y++
-        prod *= GRID[x][y]
-    }
+    if (x + 4 < GRID.length && y + 4 < GRID.length)
+        for (let i = 0; i < 4; i++) {
+            x++;
+            y++;
+            prod *= GRID[x][y];
+        }
     return prod;
-}
+};
 
-const getLargestProd = (redNumCoords) => {
-    const allProds = []
-    for (let coord of redNumCoords) {
-        allProds.push(checkLeft(coord))
-        allProds.push(checkRight(coord))
-        allProds.push(checkDown(coord))
-        allProds.push(checkUp(coord))
-        allProds.push(checkDUL(coord))
-        allProds.push(checkDUR(coord))
-        allProds.push(checkDLL(coord))
-        allProds.push(checkDLR(coord))
+const getLargestProd = (allCoords) => {
+    const allProds = [];
+    for (let coord of allCoords) {
+        allProds.push(checkLeft(coord));
+        allProds.push(checkRight(coord));
+        allProds.push(checkDown(coord));
+        allProds.push(checkUp(coord));
+        allProds.push(checkDUL(coord));
+        allProds.push(checkDUR(coord));
+        allProds.push(checkDLL(coord));
+        allProds.push(checkDLR(coord));
     }
-    return Math.max(...allProds)
-}
+    return Math.max(...allProds);
+};
 
 console.log(getLargestProd(NUM_COORDS));
